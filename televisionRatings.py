@@ -25,3 +25,9 @@ monday_ratings['SHARE'] = monday_ratings['SHARE'].round(2)
 
 # exclude the first row containing unwanted information when printing using iloc
 print(monday_ratings.iloc[1:].to_string(index=False))
+
+# import os
+# contents = os.listdir(".")
+# for report in contents
+#   if reportName 
+# write a loop to do the above for all ratings reports in the directory
