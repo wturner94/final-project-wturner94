@@ -48,7 +48,14 @@ merged_results = pd.concat(results_list, axis=1)
 # Reset the index of the merged DataFrame
 merged_results.reset_index(drop=True, inplace=True)
 
-merged_results = merged_results.fillna('---')
+# Fill NaN values in the 'PROGRAM' column with the first available value above them
+merged_results['PROGRAM'] = merged_results['PROGRAM'].fillna(method='ffill')
 
-# Display the merged results
-print(merged_results.to_string(index=False))
+# Create a new DataFrame for the subset of rows starting from the 4th row
+output_dataframe = merged_results.iloc[4:].reset_index(drop=True)
+
+# Display the output DataFrame
+print(output_dataframe.to_string(index=False))
+
+# Export the output DataFrame to a CSV file
+output_dataframe.to_csv('output.csv', index=False)

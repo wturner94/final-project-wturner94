@@ -45,10 +45,15 @@ for filename in files:
 # Concatenate DataFrames along columns without setting the index
 merged_results = pd.concat(results_list, axis=1)
 
+
 # Reset the index of the merged DataFrame
 merged_results.reset_index(drop=True, inplace=True)
 
-merged_results = merged_results.fillna('---')
+# Fill NaN values in the 'PROGRAM' column with the first available value above them
+merged_results['PROGRAM'] = merged_results['PROGRAM'].fillna(method='ffill')
 
-# Display the merged results
-print(merged_results.to_string(index=False))
+# Display the merged results starting from the 4th row
+print(merged_results.iloc[4:].to_string(index=False))
+
+# Export the DataFrame to a CSV file
+merged_results.iloc[4:].to_csv('output.csv', index=False)
